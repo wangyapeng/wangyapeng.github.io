@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang class="loading">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Javascript 原型链 - 光辉岁月</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="test test,js原型链
+js原型链是什么？
+在思考这个问题的时候，我们可能会有很多概念，【链子】、【祖先】、【father】
+
+要理解 原型链 首先要理解 原型
+对象的属性 [[Prototype]] 都指向其,"> 
+    <meta name="author" content="ypeng"> 
+    <link rel="alternative" href="atom.xml" title="光辉岁月" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    
+    <link rel="stylesheet" href="/css/diaspora.css">
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+</html>
+<body class="loading">
+    <span id="config-title" style="display:none">光辉岁月</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="https://wangyapeng.github.io"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">Javascript 原型链</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">Javascript 原型链</h1>
+        <div class="stuff">
+            <span>四月 30, 2020</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h1 id="js原型链"><a href="#js原型链" class="headerlink" title="js原型链"></a>js原型链</h1><blockquote>
+<p>js原型链是什么？</p>
+<p>在思考这个问题的时候，我们可能会有很多概念，【链子】、【祖先】、【father】</p>
+<ol>
+<li><p>要理解 <code>原型链</code> 首先要理解 <code>原型</code></p>
+<p>对象的属性 <code>[[Prototype]]</code> 都指向其他对象，Object.prototype 的 <code>[[Prototype]]</code> 例外。</p>
+</li>
+</ol>
+<ol start="2">
+<li><p>单纯从 <code>原型</code>链 这个这个词来理解，js原型链更像是一种copy 或 引用。</p>
+<p>简单理解就是原型组成的链，js引擎会通过 <code>__proto__</code> 一层层的往上链接。这条链就是原型链</p>
+</li>
+</ol>
+</blockquote>
+<ol>
+<li>下面通过代码来演示一下原型链</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">People</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">People.prototype.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'hello, guy!'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> xiaoMing = <span class="keyword">new</span> People();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(xiaoMing.sayHello()) <span class="comment">// hello, guy!</span></span><br><span class="line">xiaoMing.__proto__ === Person.prototype;</span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(xiaoMing) === Person.prototype;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(People) <span class="comment">// ƒ () &#123; [native code] &#125;</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(People) === <span class="built_in">Function</span>.prototype <span class="comment">// true;</span></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(People.prototype) </span><br><span class="line"><span class="comment">// &#123;constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …&#125;</span></span><br></pre></td></tr></table></figure>
+<p>从代码来跟踪：</p>
+<ul>
+<li>xiaoMing 的<code>__proto__</code>指向 People.prototype</li>
+<li>People.prototype 的 <code>__proto__</code> 指向Object.Prototype</li>
+</ul>
+<ol start="2">
+<li>下面进入更加模糊的关系。。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.getPrototypeOf(<span class="built_in">Object</span>)</span><br><span class="line"><span class="comment">// ƒ () &#123; [native code] &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(<span class="built_in">Function</span>)</span><br><span class="line"><span class="comment">// ƒ () &#123; [native code] &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.__proto__</span><br><span class="line"><span class="comment">// ƒ () &#123; [native code] &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.__proto__</span><br><span class="line"><span class="comment">// ƒ () &#123; [native code] &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(<span class="built_in">Function</span>.prototype)</span><br><span class="line"><span class="comment">// &#123;constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(<span class="built_in">Object</span>.prototype)</span><br><span class="line"><span class="comment">// null</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.getPrototypeOf(<span class="number">100</span>)</span><br><span class="line"><span class="comment">// Number &#123;0, constructor: ƒ, toExponential: ƒ, toFixed: ƒ, toPrecision: ƒ, …&#125;</span></span><br><span class="line"><span class="keyword">constructor</span>: ƒ Number()</span><br><span class="line">toExponential: ƒ toExponential()</span><br><span class="line">toFixed: ƒ toFixed()</span><br><span class="line">toLocaleString: ƒ toLocaleString()</span><br><span class="line">toPrecision: ƒ toPrecision()</span><br><span class="line">toString: ƒ toString()</span><br><span class="line">valueOf: ƒ valueOf()</span><br><span class="line">__proto__: Object</span><br><span class="line">[[PrimitiveValue]]: 0</span><br><span class="line"></span><br><span class="line">// 下面看几种数据类型的prototype 都是？</span><br><span class="line"></span><br><span class="line">100 instanceof Number</span><br><span class="line">// false</span><br><span class="line">100 instanceof Object</span><br><span class="line">// false</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Object.getPrototypeOf(obj)</span><br><span class="line">//&#123;<span class="keyword">constructor</span>: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …&#125;</span><br><span class="line">obj instanceof Object</span><br><span class="line">//true</span><br><span class="line"></span><br><span class="line">Object.getPrototypeOf('test')</span><br><span class="line">//String &#123;<span class="string">""</span>, <span class="attr">constructor</span>: ƒ, <span class="attr">anchor</span>: ƒ, <span class="attr">big</span>: ƒ, <span class="attr">blink</span>: ƒ, …&#125;anchor: ƒ anchor()big: ƒ big()blink: ƒ blink()bold: ƒ bold()charAt: ƒ charAt()charCodeAt: ƒ charCodeAt()codePointAt: ƒ codePointAt()concat: ƒ concat()<span class="keyword">constructor</span>: ƒ String()endsWith: ƒ endsWith()fixed: ƒ fixed()fontcolor: ƒ fontcolor()fontsize: ƒ fontsize()includes: ƒ includes()indexOf: ƒ indexOf()italics: ƒ italics()lastIndexOf: ƒ lastIndexOf()length: 0link: ƒ link()localeCompare: ƒ localeCompare()match: ƒ match()matchAll: ƒ matchAll()normalize: ƒ normalize()padEnd: ƒ padEnd()padStart: ƒ padStart()repeat: ƒ repeat()replace: ƒ replace()search: ƒ search()slice: ƒ slice()small: ƒ small()split: ƒ split()startsWith: ƒ startsWith()strike: ƒ strike()sub: ƒ sub()substr: ƒ substr()substring: ƒ substring()sup: ƒ sup()toLocaleLowerCase: ƒ toLocaleLowerCase()toLocaleUpperCase: ƒ toLocaleUpperCase()toLowerCase: ƒ toLowerCase()toString: ƒ toString()toUpperCase: ƒ toUpperCase()trim: ƒ trim()trimEnd: ƒ trimEnd()trimLeft: ƒ trimStart()trimRight: ƒ trimEnd()trimStart: ƒ trimStart()valueOf: ƒ valueOf()Symbol(Symbol.iterator): ƒ [Symbol.iterator]()__proto__: Object[[PrimitiveValue]]: ""</span><br><span class="line">'test' instanceof String</span><br><span class="line">//false</span><br><span class="line">String('test') === 'test'</span><br><span class="line">//true</span><br><span class="line">String('test') instanceof String</span><br><span class="line">// false</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Object 是有Function 创建的</p>
+</li>
+<li><p>Function.prototype 的 原型是 Object.Prototype</p>
+</li>
+<li><p>Function.prototype 是 Function。</p>
+</li>
+<li><p>函数是有它自己创建的，难道是为了保持一致？？</p>
+</li>
+</ul>
+<p> 下面这张图，展示更加错综复杂的原型链。</p>
+<p> <img src="https://upload-images.jianshu.io/upload_images/2418690-5d2b5b99c77e9fc7..png" alt></p>
+<blockquote>
+<p>是不是很迷惑。</p>
+<p>Object 是有Function 创建的，这个正好符合写普通fuction的写法，function Object() {}</p>
+<p>只不过这次函数名是 Object而已。</p>
+</blockquote>
+<p>看下面如果我们把Object 重写了。这样只要通过Object 构造函数创建的原型都已经被改写</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Object</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">a.__proto__</span><br><span class="line"><span class="comment">// &#123;constructor: ƒ&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c = <span class="keyword">new</span> <span class="built_in">Object</span>(&#123;&#125;)</span><br><span class="line">c.__proto__</span><br><span class="line"><span class="comment">// &#123;constructor: ƒ&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> d = <span class="keyword">new</span> <span class="built_in">Object</span>(&#123;<span class="attr">name</span>: <span class="string">'dd'</span>&#125;)</span><br><span class="line">d.__proto__</span><br><span class="line"><span class="comment">// &#123;constructor: ƒ&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.__proto__</span><br><span class="line"><span class="comment">// ƒ () &#123; [native code] &#125;</span></span><br></pre></td></tr></table></figure>
+<p>最后又回到了 Function</p>
+<p>js 就是函数式编程，一切皆函数，哈哈。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='false'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/typed.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</html>
